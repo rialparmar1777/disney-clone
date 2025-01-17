@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Navbar from "./Components/Navbar";
+import Slider from "./Components/Slider";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -10,6 +11,7 @@ function App() {
   return (
     <div className="">
       <Navbar />
+      <Slider />
     </div>
   );
 }

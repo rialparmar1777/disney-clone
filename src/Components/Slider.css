@@ -1,0 +1,28 @@
+.slider-container {
+    position: relative;
+  }
+  
+  .slider-image {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+  
+  .slider-image:hover {
+    border: 4px solid #fff;
+    transform: scale(1.05);
+  }
+  
+  .slider-image.loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-none {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
