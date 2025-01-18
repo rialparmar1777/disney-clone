@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import GlobalApi from '../Services/GlobalApi';
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
-import './Slider.css'; // Import the CSS file for additional styles
+import './Slider.css'; // Import the CSS file for styling
 
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 const screenWidth = window.innerWidth;
@@ -12,6 +12,10 @@ function Slider() {
 
   useEffect(() => {
     getTrendingMovies();
+    const interval = setInterval(() => {
+      sliderRight(elementRef.current);
+    }, 2000);
+    return () => clearInterval(interval);
   }, []);
 
   const getTrendingMovies = () => {
@@ -29,22 +33,24 @@ function Slider() {
     element.scrollLeft -= screenWidth - 110;
   };
 
+  const handleImageLoad = (event) => {
+    event.target.classList.add('loaded');
+  };
+
   return (
     <div className="slider-container">
-      <HiChevronLeft className="hidden md:block text-white text-[30px] absolute
-        mx-8 mt-[150px] cursor-pointer z-10" 
-        onClick={() => sliderLeft(elementRef.current)} />
-      <HiChevronRight className="hidden md:block text-white text-[30px] absolute
-        mx-8 mt-[150px] cursor-pointer right-0 z-10" 
-        onClick={() => sliderRight(elementRef.current)} />
+      <HiChevronLeft className="chevron left" onClick={() => sliderLeft(elementRef.current)} />
+      <HiChevronRight className="chevron right" onClick={() => sliderRight(elementRef.current)} />
 
-      <div className="flex overflow-x-auto w-full px-16 py-4
-        scrollbar-none scroll-smooth" ref={elementRef}>
+      <div className="slider" ref={elementRef}>
         {movieList.map((item) => (
-          <img src={IMAGE_BASE_URL + item.backdrop_path} 
-            className="slider-image min-w-full md:h-[310px] object-cover
-            object-left-top mr-5 rounded-md transition-all duration-300 ease-in-out" 
-            alt={item.title} />
+          <div className="slider-item" key={item.id}>
+            <img src={IMAGE_BASE_URL + item.backdrop_path} 
+              className="slider-image" 
+              alt={item.title} 
+              onLoad={handleImageLoad} />
+            <div className="slider-title">{item.title}</div>
+          </div>
         ))}
       </div>
     </div>
