@@ -1,60 +1,78 @@
-import React, { useEffect, useRef, useState } from 'react';
-import GlobalApi from '../Services/GlobalApi';
-import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2';
-import './Slider.css'; // Import the CSS file for styling
+import React, { useState, useEffect } from "react";
+import "./Slider.css";
+import { fetchMoviesByGenre } from "../Services/GlobalApi";
 
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
-const screenWidth = window.innerWidth;
+const Slider = ({ genreId }) => {
+  const [movies, setMovies] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-function Slider() {
-  const [movieList, setMovieList] = useState([]);
-  const elementRef = useRef();
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === movies.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? movies.length - 1 : prevIndex - 1
+    );
+  };
 
   useEffect(() => {
-    getTrendingMovies();
-    const interval = setInterval(() => {
-      sliderRight(elementRef.current);
-    }, 2000);
+    const getMovies = async () => {
+      const data = await fetchMoviesByGenre(genreId); // Fetch movies for the selected genre
+      setMovies(data);
+    };
+    getMovies();
+  }, [genreId]);
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000); // Auto-slide every 5 seconds
     return () => clearInterval(interval);
-  }, []);
+  }, [currentIndex]);
 
-  const getTrendingMovies = () => {
-    GlobalApi.getTrendingVideos.then(resp => {
-      console.log(resp.data.results);
-      setMovieList(resp.data.results);
-    });
-  };
-
-  const sliderRight = (element) => {
-    element.scrollLeft += screenWidth - 110;
-  };
-
-  const sliderLeft = (element) => {
-    element.scrollLeft -= screenWidth - 110;
-  };
-
-  const handleImageLoad = (event) => {
-    event.target.classList.add('loaded');
-  };
+  if (movies.length === 0) return <p>Loading...</p>;
 
   return (
-    <div className="slider-container">
-      <HiChevronLeft className="chevron left" onClick={() => sliderLeft(elementRef.current)} />
-      <HiChevronRight className="chevron right" onClick={() => sliderRight(elementRef.current)} />
-
-      <div className="slider" ref={elementRef}>
-        {movieList.map((item) => (
-          <div className="slider-item" key={item.id}>
-            <img src={IMAGE_BASE_URL + item.backdrop_path} 
-              className="slider-image" 
-              alt={item.title} 
-              onLoad={handleImageLoad} />
-            <div className="slider-title">{item.title}</div>
+    <div className="slider">
+      <button className="slider-btn prev" onClick={prevSlide}>
+        &#10094;
+      </button>
+      <div
+        className="slider-wrapper"
+        style={{
+          transform: `translateX(-${currentIndex * 100}%)`,
+        }}
+      >
+        {movies.map((movie) => (
+          <div className="slider-item" key={movie.id}>
+            <div
+              className="slider-background"
+              style={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+              }}
+            >
+              <div className="slider-content">
+                <h2 className="movie-title">{movie.title || movie.name}</h2>
+              </div>
+            </div>
           </div>
+        ))}
+      </div>
+      <button className="slider-btn next" onClick={nextSlide}>
+        &#10095;
+      </button>
+      <div className="dots">
+        {movies.map((_, index) => (
+          <span
+            key={index}
+            className={`dot ${index === currentIndex ? "active" : ""}`}
+            onClick={() => setCurrentIndex(index)}
+          ></span>
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default Slider;
