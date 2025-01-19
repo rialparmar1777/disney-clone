@@ -1,0 +1,38 @@
+.movie-list-container {
+    position: relative;
+  }
+  
+  .movie-list {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+    padding: 1rem;
+    scroll-behavior: smooth;
+  }
+  
+  .slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+  }
+  
+  .slider-arrow.left {
+    left: 0;
+  }
+  
+  .slider-arrow.right {
+    right: 0;
+  }
+  
+  .arrow-low {
+    margin-top: 50px;
+  }
+  
+  .arrow-high {
+    margin-top: 100px;
+  }
+  

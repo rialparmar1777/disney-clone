@@ -1,0 +1,15 @@
+.genre-movie-list {
+    padding: 2rem 5%;
+  }
+  
+  .genre-section {
+    margin-bottom: 3rem;
+  }
+  
+  .genre-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+  }
+  
