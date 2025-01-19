@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "./Components/Navbar";
 import Slider from "./Components/Slider";
 import ProductionHouse from "./Components/ProductionHouse";
+import GenreMovieList from "./Components/GenreMovieList";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -14,6 +15,7 @@ function App() {
       <Navbar />
       <Slider genreId={28} />
       <ProductionHouse />
+      <GenreMovieList />
     </div>
   );
 }
