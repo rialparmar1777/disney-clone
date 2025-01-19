@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import Slider from "./Components/Slider";
+import ProductionHouse from "./Components/ProductionHouse";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,6 +13,7 @@ function App() {
     <div className="">
       <Navbar />
       <Slider genreId={28} />
+      <ProductionHouse />
     </div>
   );
 }
