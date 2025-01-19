@@ -2,16 +2,16 @@
 .production-house {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    padding: 2rem;
+    justify-content: space-between; /* Ensures even spacing between items */
+    gap: 2rem; /* Adjust spacing between the cards */
+    padding: 2rem 5%; /* Add padding around the entire section */
   }
   
   .production-card {
     position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 10px;
+    width: 180px; /* Slightly larger cards for better visibility */
+    height: 180px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -33,7 +33,6 @@
     transition: opacity 0.3s ease;
     z-index: 1;
   }
-  
   .production-card:hover .production-video {
     opacity: 1;
   }
