@@ -1,6 +1,7 @@
 import React from 'react';
 import GenresList from '../Constant/GenresList';
 import MovieList from './MovieList';
+import "./GenreMovieList.css";
 
 function GenreMovieList() {
   return (
