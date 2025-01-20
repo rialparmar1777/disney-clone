@@ -1,20 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react';
-import GlobalApi from '../Services/GlobalApi';
+import { fetchMoviesByGenre } from '../Services/GlobalApi';
 import MovieCard from './MovieCard';
 import HrMovieCard from './HrMovieCard';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
+import "./MovieList.css";
 
 function MovieList({ genreId, index_ }) {
   const [movieList, setMovieList] = useState([]);
   const elementRef = useRef(null);
 
   useEffect(() => {
-    fetchMoviesByGenre();
+    getMoviesByGenre();
   }, []);
 
-  const fetchMoviesByGenre = () => {
-    GlobalApi.getMovieByGenreId(genreId).then((response) => {
-      setMovieList(response.data.results);
+  const getMoviesByGenre = () => {
+    fetchMoviesByGenre(genreId).then((results) => {
+      setMovieList(results);
     });
   };
 
