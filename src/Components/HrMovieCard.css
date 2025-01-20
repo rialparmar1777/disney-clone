@@ -1,22 +1,24 @@
 .hr-movie-card {
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .hr-card-image {
-    width: 260px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .hr-movie-card:hover .hr-card-image {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  }
-  
-  .hr-card-title {
-    margin-top: 0.5rem;
-    color: white;
-  }
-  
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hr-card-image {
+  width: 260px;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.hr-card-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.hr-card-title {
+  color: #fff;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}

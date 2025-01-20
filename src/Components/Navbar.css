@@ -5,6 +5,9 @@
   padding: 10px 20px;
   background-color: #000;
   color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar-left {
@@ -25,9 +28,10 @@
 .navbar-item {
   display: flex;
   align-items: center;
-  margin-right: 30px; /* Increased spacing */
+  margin-right: 30px;
   cursor: pointer;
   position: relative;
+  transition: color 0.3s ease;
 }
 
 .navbar-item svg {
@@ -35,7 +39,7 @@
 }
 
 .navbar-item::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
@@ -49,14 +53,88 @@
   width: 100%;
 }
 
+.navbar-item:hover {
+  color: #646cff;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.profile-icon:hover {
+  color: #646cff;
+}
+
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 120%;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  z-index: 100;
+  animation: fadeIn 0.3s ease-in-out;
+  width: 180px; /* Set a fixed width for consistency */
+}
+
+.profile-dropdown.open {
+  display: block;
+}
+
+.profile-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+  gap: 10px; /* Add spacing between icon and text */
+}
+
+.profile-item:hover {
+  background-color: #333;
+  color: #646cff;
+}
+
+.profile-item svg {
+  font-size: 1.2rem;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.profile-item:hover svg {
+  color: #646cff;
+}
+
+.profile-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 15px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #1a1a1a transparent;
 }
 
 .navbar-toggle {
   display: none;
   cursor: pointer;
+  font-size: 1.5rem;
 }
 
 /* Media query for mobile devices */
@@ -87,15 +165,24 @@
     margin-bottom: 10px;
   }
 
-  .navbar-item span {
-    display: none;
-  }
-
   .navbar-right {
     align-self: flex-end;
+    margin-top: 10px;
   }
 
   .navbar-toggle {
     display: block;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
