@@ -1,6 +1,7 @@
 .movie-list-container {
   position: relative;
   overflow: hidden;
+  padding: 1rem 0;
 }
 
 .movie-list {
@@ -47,4 +48,23 @@
 
 .arrow-high {
   top: 30%;
+}
+
+@media (max-width: 768px) {
+  .movie-list {
+    gap: 0.5rem;
+  }
+
+  .slider-arrow {
+    font-size: 1.5rem;
+    padding: 0.3rem;
+  }
+
+  .slider-arrow.left {
+    left: 0.5rem;
+  }
+
+  .slider-arrow.right {
+    right: 0.5rem;
+  }
 }
