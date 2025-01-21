@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link
 import "./Navbar.css";
 import logo from "../assets/Images/logo.png";
 import {
@@ -11,7 +12,7 @@ import {
   FaUser,
   FaBars,
   FaCog,
-  FaSignOutAlt
+  FaSignOutAlt,
 } from "react-icons/fa";
 
 const Navbar = () => {
@@ -36,10 +37,14 @@ const Navbar = () => {
       </div>
       <div className={`navbar-items ${isOpen ? "open" : ""}`}>
         <div className="navbar-item">
-          <FaHome /> Home
+          <Link to="/"> {/* Add Link for Home */}
+            <FaHome /> Home
+          </Link>
         </div>
         <div className="navbar-item">
-          <FaSearch /> Search
+          <Link to="/search"> {/* Add Link for Search */}
+            <FaSearch /> Search
+          </Link>
         </div>
         <div className="navbar-item">
           <FaPlus /> Watch List
