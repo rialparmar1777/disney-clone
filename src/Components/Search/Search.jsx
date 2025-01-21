@@ -1,30 +1,26 @@
 import React, { useState } from "react";
+import { searchMovies, fetchSimilarMovies } from "../../Services/GlobalApi";
 import "./Search.css";
 
 const Search = () => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    // Simulate search results
-    setSearchResults([
-      {
-        id: 1,
-        title: "The Lion King",
-        image: "https://via.placeholder.com/300x200?text=Lion+King",
-      },
-      {
-        id: 2,
-        title: "Frozen",
-        image: "https://via.placeholder.com/300x200?text=Frozen",
-      },
-      {
-        id: 3,
-        title: "Avengers: Endgame",
-        image: "https://via.placeholder.com/300x200?text=Avengers",
-      },
-    ]);
+    if (query.trim() === "") return;
+
+    // Fetch search results
+    const results = await searchMovies(query);
+    setSearchResults(results);
+
+    // Fetch similar movies for the first result
+    if (results.length > 0) {
+      const movieId = results[0].id;
+      const similarResults = await fetchSimilarMovies(movieId);
+      setSimilarMovies(similarResults);
+    }
   };
 
   return (
@@ -57,8 +53,27 @@ const Search = () => {
           <div className="results-grid">
             {searchResults.map((result) => (
               <div key={result.id} className="result-card">
-                <img src={result.image} alt={result.title} />
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${result.poster_path}`}
+                  alt={result.title}
+                />
                 <p>{result.title}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+      {similarMovies.length > 0 && (
+        <div className="results-container">
+          <h2>Similar Movies</h2>
+          <div className="results-grid">
+            {similarMovies.map((movie) => (
+              <div key={movie.id} className="result-card">
+                <img
+                  src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                  alt={movie.title}
+                />
+                <p>{movie.title}</p>
               </div>
             ))}
           </div>

@@ -37,26 +37,46 @@ const Navbar = () => {
       </div>
       <div className={`navbar-items ${isOpen ? "open" : ""}`}>
         <div className="navbar-item">
-          <Link to="/"> {/* Add Link for Home */}
+          <Link to="/">
+            {" "}
+            {/* Add Link for Home */}
             <FaHome /> Home
           </Link>
         </div>
         <div className="navbar-item">
-          <Link to="/search"> {/* Add Link for Search */}
+          <Link to="/search">
+            {" "}
+            {/* Add Link for Search */}
             <FaSearch /> Search
           </Link>
         </div>
         <div className="navbar-item">
-          <FaPlus /> Watch List
+          <Link to="/watchlist">
+            {" "}
+            {/* Add Link for Watch List */}
+            <FaPlus /> Watch List
+          </Link>
         </div>
         <div className="navbar-item">
-          <FaStar /> Originals
+          <Link to="/originals">
+            {" "}
+            {/* Add Link for Originals */}
+            <FaStar /> Originals
+          </Link>
         </div>
         <div className="navbar-item">
-          <FaFilm /> Movies
+          <Link to="/movies">
+            {" "}
+            {/* Add Link for Movies */}
+            <FaFilm /> Movies
+          </Link>
         </div>
         <div className="navbar-item">
-          <FaTv /> Series
+          <Link to="/series">
+            {" "}
+            {/* Add Link for Series */}
+            <FaTv /> Series
+          </Link>
         </div>
       </div>
       <div className="navbar-right">
