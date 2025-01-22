@@ -31,7 +31,9 @@
   margin-right: 30px;
   cursor: pointer;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.1s ease; /* Smooth transition for color change */
+  color: white; /* Default color for links */
+  text-decoration: none; /* Remove underline */
 }
 
 .navbar-item svg {
@@ -41,12 +43,12 @@
 .navbar-item::after {
   content: "";
   position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -2px;
+  width: 0; /* Start with no underline */
+  height: 2px; /* Thickness of underline */
+  bottom: -2px; /* Position of underline */
   left: 0;
-  background-color: white;
-  transition: width 0.3s ease-in-out;
+  background-color: white; /* Color of underline */
+  transition: width 0.3s ease-in-out; /* Smooth transition for underline */
 }
 
 .navbar-item:hover::after {
@@ -55,6 +57,12 @@
 
 .navbar-item:hover {
   color: #646cff;
+}
+
+/* Remove text-decoration on links inside navbar items */
+.navbar-item a {
+  color: inherit; /* Inherit color from parent */
+  text-decoration: none; /* Remove default underline */
 }
 
 .navbar-right {
