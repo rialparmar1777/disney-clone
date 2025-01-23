@@ -45,6 +45,14 @@ const Watchlist = () => {
     setSelectedMovie(null);
   };
 
+  const removeMovie = (movieId) => {
+    if (window.confirm("Are you sure you want to remove this movie?")) {
+      const updatedMovies = movies.filter((movie) => movie.id !== movieId);
+      setMovies(updatedMovies);
+    }
+  };
+  
+
   return (
     <div className="watchlist-container">
       <h1 className="watchlist-title">My Watchlist</h1>
@@ -85,7 +93,12 @@ const Watchlist = () => {
               >
                 View Details
               </button>
-              <button className="remove-btn">Remove</button>
+              <button
+                className="remove-btn"
+                onClick={() => removeMovie(movie.id)}
+              >
+                Remove
+              </button>
             </div>
           </div>
         ))}
