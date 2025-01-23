@@ -1,0 +1,183 @@
+/* General Styles */
+body {
+  background: linear-gradient(135deg, #121212, #1f1f1f);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.watchlist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.watchlist-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #ffab00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Search Bar */
+.search-bar input {
+  padding: 12px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: box-shadow 0.3s;
+}
+
+.search-bar input:focus {
+  box-shadow: 0 0 10px #ffab00;
+  outline: none;
+}
+
+.search-bar button {
+  padding: 12px 20px;
+  background-color: #ffab00;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-bar button:hover {
+  background-color: #f57c00;
+  transform: scale(1.1);
+}
+
+/* Genre Filter */
+.genre-filter button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 8px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.genre-filter button:hover {
+  background-color: #ffab00;
+  transform: scale(1.1);
+}
+
+/* Movie Grid */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.movie-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #222;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 171, 0, 0.5);
+}
+
+.movie-poster {
+  width: 100%;
+  border-bottom: 3px solid #ffab00;
+}
+
+.movie-info {
+  padding: 10px;
+  text-align: center;
+}
+
+.movie-title {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #ffab00;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.details-btn {
+  background-color: #ffab00;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  margin: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.details-btn:hover {
+  background-color: #f57c00;
+  transform: scale(1.1);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  animation: slideUp 0.3s ease;
+}
+
+.rating-badge {
+  display: inline-block;
+  background: #ffab00;
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: white;
+}
+
+.close-modal-btn {
+  background-color: #f57c00;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.close-modal-btn:hover {
+  background-color: #ffab00;
+  transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
