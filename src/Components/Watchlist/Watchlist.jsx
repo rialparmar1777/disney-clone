@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchMoviesByGenre, searchMovies } from "../../Services/GlobalApi";
-import "./Watchlist.css";
+import styles from "./Watchlist.module.css";
 import axios from "axios";
 
 const movieBaseUrl = "https://api.themoviedb.org/3";
@@ -51,25 +51,27 @@ const Watchlist = () => {
       setMovies(updatedMovies);
     }
   };
-  
 
   return (
-    <div className="watchlist-container">
-      <h1 className="watchlist-title">My Watchlist</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>My Watchlist</h1>
 
       {/* Search Bar */}
-      <div className="search-bar">
+      <div className={styles.searchBar}>
         <input
           type="text"
           placeholder="Search movies..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          className={styles.searchInput}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch} className={styles.searchButton}>
+          Search
+        </button>
       </div>
 
       {/* Genre Filter */}
-      <div className="genre-filter">
+      <div className={styles.genreFilter}>
         <button onClick={() => setGenreId(null)}>All</button>
         <button onClick={() => setGenreId(28)}>Action</button>
         <button onClick={() => setGenreId(35)}>Comedy</button>
@@ -77,24 +79,24 @@ const Watchlist = () => {
       </div>
 
       {/* Movie Grid */}
-      <div className="movie-grid">
+      <div className={styles.movieGrid}>
         {movies.map((movie) => (
-          <div key={movie.id} className="movie-card">
+          <div key={movie.id} className={styles.movieCard}>
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt={movie.title}
-              className="movie-poster"
+              className={styles.moviePoster}
             />
-            <div className="movie-info">
-              <h3 className="movie-title">{movie.title}</h3>
+            <div className={styles.movieInfo}>
+              <h3 className={styles.movieTitle}>{movie.title}</h3>
               <button
-                className="details-btn"
+                className={styles.detailsButton}
                 onClick={() => fetchMovieDetails(movie.id)}
               >
                 View Details
               </button>
               <button
-                className="remove-btn"
+                className={styles.removeButton}
                 onClick={() => removeMovie(movie.id)}
               >
                 Remove
@@ -106,17 +108,17 @@ const Watchlist = () => {
 
       {/* Modal for Movie Details */}
       {selectedMovie && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalOverlay} onClick={closeModal}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <h2>{selectedMovie.title}</h2>
-            <p className="movie-overview">{selectedMovie.overview}</p>
+            <p className={styles.movieOverview}>{selectedMovie.overview}</p>
             <p>
               <strong>IMDB Rating:</strong>{" "}
-              <span className="rating-badge">
+              <span className={styles.ratingBadge}>
                 {selectedMovie.vote_average} / 10
               </span>
             </p>
-            <button onClick={closeModal} className="close-modal-btn">
+            <button onClick={closeModal} className={styles.closeModalButton}>
               Close
             </button>
           </div>
