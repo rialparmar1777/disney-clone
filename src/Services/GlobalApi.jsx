@@ -35,3 +35,17 @@ export const fetchSimilarMovies = async (movieId) => {
     return [];
   }
 };
+
+export const fetchMovieTrailer = async (movieId) => {
+  try {
+    const url = `${movieBaseUrl}/movie/${movieId}/videos?api_key=${api_key}`;
+    const response = await axios.get(url);
+    const trailers = response.data.results.filter(
+      (video) => video.type === "Trailer" && video.site === "YouTube"
+    );
+    return trailers.length > 0 ? trailers[0].key : "";
+  } catch (error) {
+    console.error("Error fetching movie trailer:", error);
+    throw error;
+  }
+};
