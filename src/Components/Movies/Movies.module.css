@@ -12,6 +12,18 @@
   color: #ff9f00;
   margin-bottom: 15px;
   text-transform: uppercase;
+  position: relative;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.sectionTitle::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #ff9f00;
+  margin-top: 5px;
+  animation: slideIn 1s ease-in-out;
 }
 
 /* Featured Section */
@@ -43,6 +55,7 @@
   overflow: hidden;
   position: relative;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation: fadeInUp 0.5s ease-in-out;
 }
 
 .featuredCard:hover {
@@ -53,15 +66,23 @@
 .featuredImage {
   width: 100%;
   height: auto;
+  transition: transform 0.3s ease-in-out;
+}
+
+.featuredCard:hover .featuredImage {
+  transform: scale(1.1);
 }
 
 .featuredInfo {
   padding: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 1px solid #ff9f00;
 }
 
 .featuredInfo h3 {
   margin: 0;
   font-size: 1.5rem;
+  color: #ff9f00;
 }
 
 .featuredInfo p {
@@ -87,6 +108,7 @@
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  animation: fadeInUp 0.5s ease-in-out;
 }
 
 .movieCard:hover {
@@ -98,13 +120,20 @@
   width: 100%;
   height: auto;
   aspect-ratio: 2/3;
+  transition: transform 0.3s ease-in-out;
+}
+
+.movieCard:hover .movieImage {
+  transform: scale(1.1);
 }
 
 .movieTitle {
   padding: 10px;
   text-align: center;
   font-size: 1rem;
-  color: #ffffff;
+  color: #ff9f00;
+  background: rgba(0, 0, 0, 0.7);
+  border-top: 1px solid #ff9f00;
 }
 
 /* Loading Spinner */
@@ -113,6 +142,7 @@
   font-size: 1.5rem;
   color: #ff9f00;
   margin-top: 50px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 /* Trailer Modal */
@@ -127,6 +157,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .trailerContent {
@@ -161,4 +192,34 @@
 
 .closeTrailer:hover {
   background: #e68a00;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 50px;
+  }
 }
