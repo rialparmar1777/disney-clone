@@ -1,44 +1,43 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Series.module.css"; // Import styles as an object
-import { fetchMoviesByGenre, fetchMovieTrailer } from "../../Services/GlobalApi";
+import React, { useState, useEffect } from "react";
+import styles from "./Series.module.css";
+import { fetchTrendingSeries, fetchSeriesByGenre, fetchSeriesTrailer } from "../../Services/GlobalApi";
 
 const genres = [
-  { id: 10759, name: "Action & Adventure" },
-  { id: 16, name: "Animation" },
-  { id: 35, name: "Comedy" },
   { id: 18, name: "Drama" },
-  { id: 10765, name: "Sci-Fi & Fantasy" },
+  { id: 35, name: "Comedy" },
+  { id: 10759, name: "Action" },
+  { id: 16, name: "Animation" },
 ];
 
 const Series = () => {
-  const [featuredSeries, setFeaturedSeries] = useState([]);
+  const [featuredSeries, setFeaturedSeries] = useState(null);
+  const [trendingSeries, setTrendingSeries] = useState([]);
   const [seriesByGenre, setSeriesByGenre] = useState({});
   const [trailerUrl, setTrailerUrl] = useState("");
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSeries = async () => {
+    const fetchData = async () => {
       try {
+        const trending = await fetchTrendingSeries();
+        setTrendingSeries(trending.slice(0, 10));
+        setFeaturedSeries(trending[0]);
+
         const genreData = {};
         for (let genre of genres) {
-          const series = await fetchMoviesByGenre(genre.id);
-          genreData[genre.name] = series;
+          const series = await fetchSeriesByGenre(genre.id);
+          genreData[genre.name] = series.slice(0, 10);
         }
         setSeriesByGenre(genreData);
-        setFeaturedSeries(genreData[genres[0].name]?.slice(0, 5) || []);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching series:", error);
-        setLoading(false);
       }
     };
-
-    fetchSeries();
+    fetchData();
   }, []);
 
   const handleTrailerClick = async (seriesId) => {
     try {
-      const trailer = await fetchMovieTrailer(seriesId);
+      const trailer = await fetchSeriesTrailer(seriesId);
       setTrailerUrl(trailer);
     } catch (error) {
       console.error("Error fetching trailer:", error);
@@ -49,15 +48,75 @@ const Series = () => {
     setTrailerUrl("");
   };
 
-  if (loading) {
-    return <div className={styles.loading}>Loading series...</div>;
-  }
-
   return (
     <div className={styles.seriesPage}>
+      {/* Hero Section */}
+      {featuredSeries && (
+        <div
+          className={styles.hero}
+          style={{
+            backgroundImage: `url(https://image.tmdb.org/t/p/original${featuredSeries.backdrop_path})`,
+          }}
+        >
+          <div className={styles.heroContent}>
+            <h1>{featuredSeries.name}</h1>
+            <p>{featuredSeries.overview}</p>
+            <button
+              className={styles.watchNowBtn}
+              onClick={() => handleTrailerClick(featuredSeries.id)}
+            >
+              Watch Now
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Trending Series */}
+      <div className={styles.section}>
+        <h2 className={styles.sectionTitle}>Trending Series</h2>
+        <div className={styles.trendingCarousel}>
+          {trendingSeries.map((series) => (
+            <div
+              className={styles.card}
+              key={series.id}
+              onClick={() => handleTrailerClick(series.id)}
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
+                alt={series.name}
+              />
+              <h3>{series.name}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Series by Genre */}
+      {Object.keys(seriesByGenre).map((genre) => (
+        <div className={styles.section} key={genre}>
+          <h2 className={styles.sectionTitle}>{genre}</h2>
+          <div className={styles.genreGrid}>
+            {seriesByGenre[genre].map((series) => (
+              <div
+                className={styles.card}
+                key={series.id}
+                onClick={() => handleTrailerClick(series.id)}
+              >
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
+                  alt={series.name}
+                />
+                <h3>{series.name}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {/* Trailer Modal */}
       {trailerUrl && (
-        <div className={styles.trailerModal}>
-          <div className={styles.trailerContent}>
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
             <iframe
               width="100%"
               height="500"
@@ -67,59 +126,12 @@ const Series = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
-            <button className={styles.closeTrailer} onClick={closeTrailer}>
+            <button className={styles.closeModal} onClick={closeTrailer}>
               Close
             </button>
           </div>
         </div>
       )}
-
-      {/* Featured Series */}
-      <div className={styles.featuredSection}>
-        <h2 className={styles.sectionTitle}>Featured Series</h2>
-        <div className={styles.featuredSlider}>
-          {featuredSeries.map((series) => (
-            <div
-              className={styles.featuredCard}
-              key={series.id}
-              onClick={() => handleTrailerClick(series.id)}
-            >
-              <img
-                src={`https://image.tmdb.org/t/p/original${series.backdrop_path}`}
-                alt={series.title}
-                className={styles.featuredImage}
-              />
-              <div className={styles.featuredInfo}>
-                <h3>{series.title}</h3>
-                <p>{series.overview}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Series by Genre */}
-      {Object.keys(seriesByGenre).map((genre) => (
-        <div className={styles.genreSection} key={genre}>
-          <h2 className={styles.sectionTitle}>{genre}</h2>
-          <div className={styles.genreGrid}>
-            {seriesByGenre[genre]?.map((series) => (
-              <div
-                className={styles.seriesCard}
-                key={series.id}
-                onClick={() => handleTrailerClick(series.id)}
-              >
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
-                  alt={series.title}
-                  className={styles.seriesImage}
-                />
-                <h3 className={styles.seriesTitle}>{series.title}</h3>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
     </div>
   );
 };
