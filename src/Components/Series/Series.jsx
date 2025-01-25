@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Series.module.css";
-import { fetchTrendingSeries, fetchSeriesByGenre, fetchSeriesTrailer } from "../../Services/GlobalApi";
+import { fetchTrendingSeries, fetchSeriesByGenre } from "../../Services/GlobalApi";
 
 const genres = [
   { id: 18, name: "Drama" },
@@ -13,7 +13,7 @@ const Series = () => {
   const [featuredSeries, setFeaturedSeries] = useState(null);
   const [trendingSeries, setTrendingSeries] = useState([]);
   const [seriesByGenre, setSeriesByGenre] = useState({});
-  const [trailerUrl, setTrailerUrl] = useState("");
+  const [selectedSeries, setSelectedSeries] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,17 +35,12 @@ const Series = () => {
     fetchData();
   }, []);
 
-  const handleTrailerClick = async (seriesId) => {
-    try {
-      const trailer = await fetchSeriesTrailer(seriesId);
-      setTrailerUrl(trailer);
-    } catch (error) {
-      console.error("Error fetching trailer:", error);
-    }
+  const handleCardClick = (series) => {
+    setSelectedSeries(series);
   };
 
-  const closeTrailer = () => {
-    setTrailerUrl("");
+  const closeDetailsPanel = () => {
+    setSelectedSeries(null);
   };
 
   return (
@@ -61,12 +56,6 @@ const Series = () => {
           <div className={styles.heroContent}>
             <h1>{featuredSeries.name}</h1>
             <p>{featuredSeries.overview}</p>
-            <button
-              className={styles.watchNowBtn}
-              onClick={() => handleTrailerClick(featuredSeries.id)}
-            >
-              Watch Now
-            </button>
           </div>
         </div>
       )}
@@ -79,7 +68,7 @@ const Series = () => {
             <div
               className={styles.card}
               key={series.id}
-              onClick={() => handleTrailerClick(series.id)}
+              onClick={() => handleCardClick(series)}
             >
               <img
                 src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
@@ -100,7 +89,7 @@ const Series = () => {
               <div
                 className={styles.card}
                 key={series.id}
-                onClick={() => handleTrailerClick(series.id)}
+                onClick={() => handleCardClick(series)}
               >
                 <img
                   src={`https://image.tmdb.org/t/p/w500${series.poster_path}`}
@@ -113,22 +102,39 @@ const Series = () => {
         </div>
       ))}
 
-      {/* Trailer Modal */}
-      {trailerUrl && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <iframe
-              width="100%"
-              height="500"
-              src={`https://www.youtube.com/embed/${trailerUrl}`}
-              title="Series Trailer"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-            <button className={styles.closeModal} onClick={closeTrailer}>
-              Close
+      {/* Details Panel */}
+      {selectedSeries && (
+        <div className={styles.detailsPanel}>
+          <div
+            className={styles.detailsBackdrop}
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original${selectedSeries.backdrop_path})`,
+            }}
+          />
+          <div className={styles.detailsContentWrapper}>
+            <button className={styles.closeDetailsBtn} onClick={closeDetailsPanel}>
+              ✖
             </button>
+            <img
+              className={styles.detailsPoster}
+              src={`https://image.tmdb.org/t/p/w500${selectedSeries.poster_path}`}
+              alt={selectedSeries.name}
+            />
+            <div className={styles.detailsContent}>
+              <h2>{selectedSeries.name}</h2>
+              <p>{selectedSeries.overview}</p>
+              <p>
+                <strong>Rating:</strong> {selectedSeries.vote_average}
+              </p>
+              <p>
+                <strong>First Air Date:</strong> {selectedSeries.first_air_date}
+              </p>
+              {/* Placeholder for cast section */}
+              <div className={styles.castSection}>
+                <h3>Cast:</h3>
+                <p>Fetching cast information...</p>
+              </div>
+            </div>
           </div>
         </div>
       )}
