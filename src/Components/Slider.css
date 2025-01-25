@@ -26,6 +26,20 @@
   background-position: center;
   position: relative;
   animation: fadeIn 1.5s ease;
+  transition: transform 1.5s ease;
+}
+
+.slider-background:hover {
+  transform: scale(1.05);
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
 }
 
 .slider-content {
@@ -62,11 +76,12 @@
   cursor: pointer;
   z-index: 10;
   border-radius: 50%;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .slider-btn:hover {
   background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
 }
 
 .slider-btn.prev {
@@ -103,6 +118,25 @@
 .dot:hover {
   transform: scale(1.1);
   background: rgba(255, 255, 255, 0.9);
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  animation: progress 5s linear infinite;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* Responsive Design */

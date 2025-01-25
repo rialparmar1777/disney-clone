@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link, useHistory } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/Images/logo.png";
 import {
@@ -18,6 +18,8 @@ import {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const history = useHistory();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -25,6 +27,18 @@ const Navbar = () => {
 
   const toggleProfile = () => {
     setProfileOpen(!profileOpen);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      console.log(`Searching for: ${searchQuery}`); // Debugging log
+      history.push(`/search?query=${searchQuery}`);
+    }
   };
 
   return (
@@ -38,48 +52,41 @@ const Navbar = () => {
       <div className={`navbar-items ${isOpen ? "open" : ""}`}>
         <div className="navbar-item">
           <Link to="/">
-            {" "}
-            {/* Add Link for Home */}
             <FaHome /> Home
           </Link>
         </div>
         <div className="navbar-item">
           <Link to="/search">
-            {" "}
-            {/* Add Link for Search */}
             <FaSearch /> Search
           </Link>
         </div>
         <div className="navbar-item">
           <Link to="/watchlist">
-            {" "}
-            {/* Add Link for Watch List */}
             <FaPlus /> Watch List
           </Link>
         </div>
-        <div className="navbar-item">
+        <div className="navbar-item dropdown">
           <Link to="/originals">
-            {" "}
-            {/* Add Link for Originals */}
             <FaStar /> Originals
           </Link>
-        </div>
-        <div className="navbar-item">
-          <Link to="/movies">
-            {" "}
-            {/* Add Link for Movies */}
-            <FaFilm /> Movies
-          </Link>
-        </div>
-        <div className="navbar-item">
-          <Link to="/series">
-            {" "}
-            {/* Add Link for Series */}
-            <FaTv /> Series
-          </Link>
+          <div className="dropdown-content">
+            <Link to="/movies">Movies</Link>
+            <Link to="/series">Series</Link>
+          </div>
         </div>
       </div>
       <div className="navbar-right">
+        <form className="search-bar" onSubmit={handleSearchSubmit}>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <button type="submit" className="search-icon">
+            <FaSearch />
+          </button>
+        </form>
         <div className="profile" onClick={toggleProfile}>
           <FaUser className="profile-icon" />
           <div className={`profile-dropdown ${profileOpen ? "open" : ""}`}>

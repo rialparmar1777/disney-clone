@@ -52,6 +52,7 @@ const Slider = ({ genreId }) => {
                 backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
               }}
             >
+              <div className="gradient-overlay"></div>
               <div className="slider-content">
                 <h2 className="movie-title">{movie.title || movie.name}</h2>
               </div>
@@ -71,6 +72,7 @@ const Slider = ({ genreId }) => {
           ></span>
         ))}
       </div>
+      <div className="progress-bar"></div>
     </div>
   );
 };
