@@ -6,10 +6,13 @@ const Search = () => {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [similarMovies, setSimilarMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
     if (query.trim() === "") return;
+
+    setLoading(true);
 
     // Fetch search results
     const results = await searchMovies(query);
@@ -21,6 +24,8 @@ const Search = () => {
       const similarResults = await fetchSimilarMovies(movieId);
       setSimilarMovies(similarResults);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -47,6 +52,7 @@ const Search = () => {
           </div>
         </div>
       </div>
+      {loading && <div className="loading-spinner"></div>}
       {searchResults.length > 0 && (
         <div className="results-container">
           <h2>Search Results</h2>
