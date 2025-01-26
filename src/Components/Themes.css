@@ -1,0 +1,60 @@
+/* Default Theme Variables */
+:root {
+    --background-color: #fff;
+    --text-color: #000;
+    --primary-color: #646cff;
+    --primary-color-hover: #4a52c6;
+  }
+  
+  /* Dark Theme Variables */
+  [data-theme="dark"] {
+    --background-color: #121212;
+    --text-color: #fff;
+    --primary-color: #bb86fc;
+    --primary-color-hover: #9b6efc;
+  }
+  
+  /* General Body Styles */
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Shared Component Styling */
+  .navbar,
+  .search-page,
+  .results-container,
+  .trending-tags span {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .search-form button,
+  .trending-tags span:hover {
+    background-color: var(--primary-color);
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Theme Toggle Button Styles */
+  .theme-toggle-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: red;
+  border: 2px solid black;
+  }
+  
+  .theme-toggle-btn:hover {
+    background-color: var(--primary-color-hover);
+    transform: scale(1.05);
+  }
+  

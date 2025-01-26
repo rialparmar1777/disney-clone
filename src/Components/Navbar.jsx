@@ -1,25 +1,24 @@
 import React, { useState } from "react";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/Images/logo.png";
 import {
   FaHome,
   FaSearch,
   FaPlus,
-  FaFilm,
-  FaTv,
   FaStar,
   FaUser,
   FaBars,
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
+import ThemeToggle from "./ThemeToggle"; // Import ThemeToggle
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -36,8 +35,7 @@ const Navbar = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      console.log(`Searching for: ${searchQuery}`); // Debugging log
-      history.push(`/search?query=${searchQuery}`);
+      navigate(`/search?query=${searchQuery}`);
     }
   };
 
@@ -69,10 +67,6 @@ const Navbar = () => {
           <Link to="/originals">
             <FaStar /> Originals
           </Link>
-          <div className="dropdown-content">
-            <Link to="/movies">Movies</Link>
-            <Link to="/series">Series</Link>
-          </div>
         </div>
       </div>
       <div className="navbar-right">
@@ -101,6 +95,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        {/* Add the Theme Toggle Button */}
+        <ThemeToggle />
       </div>
     </nav>
   );
