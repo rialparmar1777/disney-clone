@@ -5,11 +5,14 @@ import "./MovieCard.css";
 function MovieCard({ movie }) {
   return (
     <div className="movie-card">
-      <img
-        src={IMAGE_BASE_URL + movie.poster_path}
-        alt={movie.title}
-        className="movie-card-image"
-      />
+      <div className="movie-card-image-wrapper">
+        <img
+          src={IMAGE_BASE_URL + movie.poster_path}
+          alt={movie.title}
+          className="movie-card-image"
+        />
+        <div className="movie-card-overlay"></div>
+      </div>
     </div>
   );
 }
