@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/Images/logo.png";
 import {
@@ -19,7 +19,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const history = useHistory();
+  const navigate  = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
