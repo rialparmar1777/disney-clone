@@ -59,7 +59,7 @@ const Footer = () => {
       {/* Footer Bottom */}
       <div className="footer-bottom">
         <p>&copy; {new Date().getFullYear()} Disney Clone. All rights reserved.</p>
-        <p>Powered by React and love for Disney.</p>
+        <p>Powered by Rial and love for Disney.</p>
       </div>
     </footer>
   );
