@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Components/Auth/AuthContext";
+import styles from "./Login.module.css"; // Import the CSS module
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,23 +18,27 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page">
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Log In</button>
-      </form>
+    <div className={styles.loginContainer}>
+      <div className={styles.loginForm}>
+        <h1>Log In</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+          />
+          <button type="submit" className={styles.button}>Log In</button>
+        </form>
+      </div>
     </div>
   );
 };
