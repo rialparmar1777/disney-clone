@@ -11,8 +11,9 @@ import {
   FaBars,
   FaCog,
   FaSignOutAlt,
+  FaTv,
+  FaPlayCircle,
 } from "react-icons/fa";
-import ThemeToggle from "./ThemeToggle"; // Import ThemeToggle
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,17 +21,10 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleProfile = () => setProfileOpen(!profileOpen);
 
-  const toggleProfile = () => {
-    setProfileOpen(!profileOpen);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -63,9 +57,19 @@ const Navbar = () => {
             <FaPlus /> Watch List
           </Link>
         </div>
-        <div className="navbar-item dropdown">
+        <div className="navbar-item">
           <Link to="/originals">
             <FaStar /> Originals
+          </Link>
+        </div>
+        <div className="navbar-item">
+          <Link to="/movies">
+            <FaPlayCircle /> Movies
+          </Link>
+        </div>
+        <div className="navbar-item">
+          <Link to="/series">
+            <FaTv /> Series
           </Link>
         </div>
       </div>
@@ -95,8 +99,6 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        {/* Add the Theme Toggle Button */}
-        <ThemeToggle />
       </div>
     </nav>
   );
