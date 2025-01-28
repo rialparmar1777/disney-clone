@@ -42,6 +42,11 @@ const Navbar = () => {
     navigate("/"); // Redirect to Home
   };
 
+  const handleNavigation = (path) => {
+    navigate(path);
+    window.scrollTo(0, 0); // Scroll to the top of the page
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
@@ -52,32 +57,32 @@ const Navbar = () => {
       </div>
       <div className={`navbar-items ${isOpen ? "open" : ""}`}>
         <div className="navbar-item">
-          <Link to="/">
+          <Link to="/" onClick={() => handleNavigation("/")}>
             <FaHome /> Home
           </Link>
         </div>
         <div className="navbar-item">
-          <Link to="/search">
+          <Link to="/search" onClick={() => handleNavigation("/search")}>
             <FaSearch /> Search
           </Link>
         </div>
         <div className="navbar-item">
-          <Link to="/watchlist">
+          <Link to="/watchlist" onClick={() => handleNavigation("/watchlist")}>
             <FaPlus /> Watch List
           </Link>
         </div>
         <div className="navbar-item">
-          <Link to="/originals">
+          <Link to="/originals" onClick={() => handleNavigation("/originals")}>
             <FaStar /> Originals
           </Link>
         </div>
         <div className="navbar-item">
-          <Link to="/movies">
+          <Link to="/movies" onClick={() => handleNavigation("/movies")}>
             <FaPlayCircle /> Movies
           </Link>
         </div>
         <div className="navbar-item">
-          <Link to="/series">
+          <Link to="/series" onClick={() => handleNavigation("/series")}>
             <FaTv /> Series
           </Link>
         </div>
