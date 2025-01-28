@@ -77,7 +77,7 @@ const Movies = () => {
       {/* Featured Movies */}
       <div className={styles.featuredSection}>
         <h2 className={styles.sectionTitle}>Featured Movies</h2>
-        <div className={styles.featuredSlider}>
+        <div className={styles.featuredGrid}>
           {featuredMovies.map((movie) => (
             <div
               className={styles.featuredCard}
