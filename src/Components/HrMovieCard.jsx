@@ -11,9 +11,10 @@ function HrMovieCard({ movie }) {
           alt={movie.title}
           className="hr-card-image"
         />
-        <div className="hr-card-overlay"></div>
+        <div className="hr-card-overlay">
+          <div className="hr-card-title">{movie.title}</div>
+        </div>
       </div>
-      <h3 className="hr-card-title">{movie.title}</h3>
     </div>
   );
 }

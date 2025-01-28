@@ -27,11 +27,12 @@
   font-size: 2rem;
   cursor: pointer;
   z-index: 10;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .slider-arrow:hover {
   background-color: #444;
+  transform: scale(1.1);
 }
 
 .slider-arrow.left {

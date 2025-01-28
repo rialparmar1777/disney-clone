@@ -28,6 +28,30 @@ const Search = () => {
     setLoading(false);
   };
 
+  const handleClearSearch = () => {
+    setQuery("");
+    setSearchResults([]);
+    setSimilarMovies([]);
+  };
+
+  const handleTrendingClick = async (tag) => {
+    setQuery(tag);
+    setLoading(true);
+
+    // Fetch search results
+    const results = await searchMovies(tag);
+    setSearchResults(results);
+
+    // Fetch similar movies for the first result
+    if (results.length > 0) {
+      const movieId = results[0].id;
+      const similarResults = await fetchSimilarMovies(movieId);
+      setSimilarMovies(similarResults);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="search-page">
       <div className="search-container">
@@ -40,15 +64,18 @@ const Search = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
           <button type="submit">Search</button>
+          <button type="button" onClick={handleClearSearch} className="clear-button">
+            Clear
+          </button>
         </form>
         <div className="trending">
           <h2>Trending Searches</h2>
           <div className="trending-tags">
-            <span>Frozen</span>
-            <span>Avengers</span>
-            <span>Star Wars</span>
-            <span>The Mandalorian</span>
-            <span>Encanto</span>
+            {["Frozen", "Avengers", "Star Wars", "The Mandalorian", "Encanto"].map((tag) => (
+              <span key={tag} onClick={() => handleTrendingClick(tag)}>
+                {tag}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -63,7 +90,11 @@ const Search = () => {
                   src={`https://image.tmdb.org/t/p/w300${result.poster_path}`}
                   alt={result.title}
                 />
-                <p>{result.title}</p>
+                <div className="result-details">
+                  <p>{result.title}</p>
+                  <p>Release Date: {result.release_date}</p>
+                  <p>Rating: {result.vote_average}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -79,7 +110,11 @@ const Search = () => {
                   src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                   alt={movie.title}
                 />
-                <p>{movie.title}</p>
+                <div className="result-details">
+                  <p>{movie.title}</p>
+                  <p>Release Date: {movie.release_date}</p>
+                  <p>Rating: {movie.vote_average}</p>
+                </div>
               </div>
             ))}
           </div>

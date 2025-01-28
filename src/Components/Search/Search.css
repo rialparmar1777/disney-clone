@@ -1,6 +1,6 @@
 /* General Styling */
 .search-page {
-  background: url('https://example.com/background.jpg') no-repeat center center fixed;
+  background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
   background-size: cover;
   color: #fff;
   min-height: 100vh;
@@ -42,7 +42,7 @@
 }
 
 .search-form input {
-  width: 70%;
+  width: 60%;
   padding: 10px;
   border: none;
   border-radius: 4px 0 0 4px;
@@ -55,7 +55,6 @@
   background-color: #646cff;
   color: #fff;
   border: none;
-  border-radius: 0 4px 4px 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 1rem;
@@ -63,6 +62,16 @@
 
 .search-form button:hover {
   background-color: #525cba;
+}
+
+.clear-button {
+  background-color: #ff5252;
+  border-radius: 0 4px 4px 0;
+  margin-left: 10px; /* Add margin to separate from search button */
+}
+
+.clear-button:hover {
+  background-color: #e04848;
 }
 
 .trending {
@@ -133,10 +142,14 @@
   object-fit: cover;
 }
 
-.result-card p {
+.result-details {
   padding: 10px;
   font-size: 1rem;
   text-align: center;
+}
+
+.result-details p {
+  margin: 5px 0;
 }
 
 /* Loading Spinner */
@@ -159,7 +172,6 @@
   }
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .search-form input {
     width: 60%;

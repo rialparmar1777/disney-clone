@@ -11,7 +11,10 @@ function MovieCard({ movie }) {
           alt={movie.title}
           className="movie-card-image"
         />
-        <div className="movie-card-overlay"></div>
+        <div className="movie-card-overlay">
+          <div className="movie-card-title">{movie.title}</div>
+          <div className="movie-card-rating">{movie.vote_average} / 10</div>
+        </div>
       </div>
     </div>
   );
